@@ -12,6 +12,7 @@ import { Projects } from "@/components/site/Projects";
 import { Process } from "@/components/site/Process";
 import { Contact } from "@/components/site/Contact";
 import { Footer } from "@/components/site/Footer";
+import { CookieBanner } from "@/components/site/CookieBanner";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -35,6 +36,7 @@ function Index() {
         <Contact />
       </main>
       <Footer />
+      <CookieBanner />
     </>
   );
 }
