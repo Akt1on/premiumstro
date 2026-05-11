@@ -19,6 +19,22 @@ async function fetchService(slug: string) {
 }
 
 export const Route = createFileRoute("/services/$slug")({
+  loader: async ({ params }) => {
+    return await fetchService(params.slug);
+  },
+  head: ({ loaderData }) => {
+    const s: any = loaderData;
+    const title = s?.seo_title || (s ? `${s.title} в Красногорске и Москве — Премиум Строй` : "Услуга — Премиум Строй");
+    const desc = s?.seo_description || s?.short_desc || "Услуги ООО «Премиум Строй» в Красногорске, Москве и МО.";
+    return {
+      meta: [
+        { title },
+        { name: "description", content: desc },
+        { property: "og:title", content: title },
+        { property: "og:description", content: desc },
+      ],
+    };
+  },
   component: ServicePage,
 });
 
