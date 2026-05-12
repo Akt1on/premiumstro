@@ -164,6 +164,18 @@
   .scrollbar-hide::-webkit-scrollbar { display: none; }
   .scrollbar-hide { scrollbar-width: none; }
 
+  .adm-input {
+    width: 100%;
+    background: transparent;
+    border: 1px solid oklch(1 0 0 / 0.15);
+    padding: 0.625rem 0.75rem;
+    font-size: 0.875rem;
+    color: var(--foreground);
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  .adm-input:focus { border-color: var(--orange); }
+
   @keyframes marquee {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
