@@ -19,6 +19,10 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as AdminServicesRouteImport } from './routes/admin.services'
+import { Route as AdminProjectsRouteImport } from './routes/admin.projects'
+import { Route as AdminLeadsRouteImport } from './routes/admin.leads'
 
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
@@ -70,6 +74,26 @@ const ServicesSlugRoute = ServicesSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ServicesRoute,
 } as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/settings',
+  path: '/settings',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminServicesRoute = AdminServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminProjectsRoute = AdminProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => AdminRoute,
+} as any)
+const AdminLeadsRoute = AdminLeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -80,6 +104,10 @@ export interface FileRoutesByFullPath {
   '/offer': typeof OfferRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRouteWithChildren
+  '/admin/leads': typeof AdminLeadsRoute
+  '/admin/projects': typeof AdminProjectsRoute
+  '/admin/services': typeof AdminServicesRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -91,6 +119,10 @@ export interface FileRoutesByTo {
   '/offer': typeof OfferRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRouteWithChildren
+  '/admin/leads': typeof AdminLeadsRoute
+  '/admin/projects': typeof AdminProjectsRoute
+  '/admin/services': typeof AdminServicesRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/admin': typeof AdminIndexRoute
 }
@@ -104,6 +136,10 @@ export interface FileRoutesById {
   '/offer': typeof OfferRoute
   '/privacy': typeof PrivacyRoute
   '/services': typeof ServicesRouteWithChildren
+  '/admin/leads': typeof AdminLeadsRoute
+  '/admin/projects': typeof AdminProjectsRoute
+  '/admin/services': typeof AdminServicesRoute
+  '/admin/settings': typeof AdminSettingsRoute
   '/services/$slug': typeof ServicesSlugRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -118,6 +154,10 @@ export interface FileRouteTypes {
     | '/offer'
     | '/privacy'
     | '/services'
+    | '/admin/leads'
+    | '/admin/projects'
+    | '/admin/services'
+    | '/admin/settings'
     | '/services/$slug'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
@@ -129,6 +169,10 @@ export interface FileRouteTypes {
     | '/offer'
     | '/privacy'
     | '/services'
+    | '/admin/leads'
+    | '/admin/projects'
+    | '/admin/services'
+    | '/admin/settings'
     | '/services/$slug'
     | '/admin'
   id:
@@ -141,6 +185,10 @@ export interface FileRouteTypes {
     | '/offer'
     | '/privacy'
     | '/services'
+    | '/admin/leads'
+    | '/admin/projects'
+    | '/admin/services'
+    | '/admin/settings'
     | '/services/$slug'
     | '/admin/'
   fileRoutesById: FileRoutesById
@@ -228,14 +276,50 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesSlugRouteImport
       parentRoute: typeof ServicesRoute
     }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/services': {
+      id: '/admin/services'
+      path: '/services'
+      fullPath: '/admin/services'
+      preLoaderRoute: typeof AdminServicesRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/projects': {
+      id: '/admin/projects'
+      path: '/projects'
+      fullPath: '/admin/projects'
+      preLoaderRoute: typeof AdminProjectsRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/leads': {
+      id: '/admin/leads'
+      path: '/leads'
+      fullPath: '/admin/leads'
+      preLoaderRoute: typeof AdminLeadsRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
 interface AdminRouteChildren {
+  AdminLeadsRoute: typeof AdminLeadsRoute
+  AdminProjectsRoute: typeof AdminProjectsRoute
+  AdminServicesRoute: typeof AdminServicesRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminLeadsRoute: AdminLeadsRoute,
+  AdminProjectsRoute: AdminProjectsRoute,
+  AdminServicesRoute: AdminServicesRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
 
@@ -266,3 +350,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
