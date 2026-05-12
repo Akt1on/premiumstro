@@ -146,6 +146,17 @@
     color: transparent;
   }
 
+  .text-stroke-strong {
+    -webkit-text-stroke: 1.5px oklch(1 0 0 / 0.85);
+    color: transparent;
+    text-shadow: 0 0 30px oklch(0.74 0.19 55 / 0.35);
+  }
+  @media (max-width: 768px) {
+    .text-stroke-strong {
+      -webkit-text-stroke: 1px oklch(1 0 0 / 0.95);
+    }
+  }
+
   .mask-fade-b {
     mask-image: linear-gradient(180deg, black 60%, transparent 100%);
   }
