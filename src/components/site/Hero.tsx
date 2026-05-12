@@ -48,14 +48,15 @@ export function Hero() {
           </span>
         </motion.div>
 
-        <h1 className="font-display text-[12vw] sm:text-[10vw] md:text-[8.5vw] leading-[0.9] tracking-tight max-w-[1400px] break-words">
+        <h1 className="font-display leading-[0.9] tracking-tight max-w-[1400px]"
+            style={{ fontSize: "clamp(2rem, 8.2vw, 8.5rem)" }}>
           {["ПРЕМИУМ", "АСФАЛЬТИРОВАНИЕ", "И БЛАГОУСТРОЙСТВО"].map((line, i) => (
             <motion.span
               key={line}
               initial={{ opacity: 0, y: 80, filter: "blur(20px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ delay: 0.4 + i * 0.18, duration: 1.1, ease: [0.22, 1, 0.36, 1] }}
-              className={`block ${i === 1 ? "text-stroke-strong" : ""}`}
+              className={`block whitespace-nowrap ${i === 1 ? "text-stroke-strong" : ""}`}
             >
               {line}
             </motion.span>
