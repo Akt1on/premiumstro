@@ -73,27 +73,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" },
       { rel: "canonical", href: "https://premiumstroe.ru/" },
     ],
-    scripts: [
-      {
-        type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "LocalBusiness",
-          name: "ООО «Премиум Строй»",
-          url: "https://premiumstroe.ru",
-          image: "https://premiumstroe.ru/og.jpg",
-          telephone: "+7 (800) 000-00-00",
-          priceRange: "$$",
-          address: {
-            "@type": "PostalAddress",
-            addressLocality: "Красногорск",
-            addressRegion: "Московская область",
-            addressCountry: "RU",
-          },
-          areaServed: ["Красногорск", "Москва", "Московская область"],
-        }),
-      },
-    ],
   }),
   shellComponent: RootShell,
   component: RootComponent,
@@ -106,6 +85,26 @@ function RootShell({ children }: { children: React.ReactNode }) {
     <html lang="ru">
       <head>
         <HeadContent />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              name: "ООО «Премиум Строй»",
+              url: "https://premiumstroe.ru",
+              telephone: "+7 (800) 000-00-00",
+              priceRange: "$$",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Красногорск",
+                addressRegion: "Московская область",
+                addressCountry: "RU",
+              },
+              areaServed: ["Красногорск", "Москва", "Московская область"],
+            }),
+          }}
+        />
       </head>
       <body>
         {children}
