@@ -7,6 +7,7 @@ import {
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
+import { Toaster } from "sonner";
 
 import appCss from "../styles.css?url";
 
@@ -59,13 +60,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "ПРЕМИУМ СТРОЙ — Асфальтирование и благоустройство" },
       { property: "og:description", content: "Инженерный подход. Собственная техника. Работаем по всей области." },
       { property: "og:type", content: "website" },
+      { property: "og:locale", content: "ru_RU" },
+      { property: "og:site_name", content: "Премиум Строй" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "theme-color", content: "#0D0D0D" },
+      { name: "format-detection", content: "telephone=no" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       { rel: "stylesheet", href: "https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" },
+      { rel: "canonical", href: "https://premiumstroe.ru/" },
     ],
   }),
   shellComponent: RootShell,
@@ -79,6 +85,26 @@ function RootShell({ children }: { children: React.ReactNode }) {
     <html lang="ru">
       <head>
         <HeadContent />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              name: "ООО «Премиум Строй»",
+              url: "https://premiumstroe.ru",
+              telephone: "+7 (800) 000-00-00",
+              priceRange: "$$",
+              address: {
+                "@type": "PostalAddress",
+                addressLocality: "Красногорск",
+                addressRegion: "Московская область",
+                addressCountry: "RU",
+              },
+              areaServed: ["Красногорск", "Москва", "Московская область"],
+            }),
+          }}
+        />
       </head>
       <body>
         {children}
@@ -93,6 +119,7 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      <Toaster theme="dark" position="top-right" richColors closeButton />
     </QueryClientProvider>
   );
 }
