@@ -90,11 +90,11 @@ export function Header() {
 
       {/* Mobile drawer */}
       <div
-        className={`lg:hidden fixed inset-x-0 top-16 sm:top-20 bottom-0 bg-asphalt/95 backdrop-blur-xl border-t border-white/10 transition-all duration-500 ${
+        className={`lg:hidden fixed inset-x-0 top-16 sm:top-20 bottom-0 bg-asphalt/95 backdrop-blur-xl border-t border-white/10 transition-all duration-500 text-foreground z-40 ${
           open ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
-        <div className="overflow-y-auto h-full px-6 py-8 grid-lines">
+        <div className="overflow-y-auto h-full px-6 py-8 grid-lines pb-32">
           <nav className="flex flex-col gap-1">
             {navLinks.map((l, i) => (
               <Link
@@ -102,7 +102,7 @@ export function Header() {
                 to={l.to}
                 onClick={() => setOpen(false)}
                 activeOptions={{ exact: l.to === "/" }}
-                className="font-display text-3xl py-4 border-b border-white/10 hover:text-[var(--orange)] transition-colors [&[data-status=active]]:text-[var(--orange)]"
+                className="font-display text-2xl sm:text-3xl py-4 border-b border-white/10 text-white hover:text-[var(--orange)] transition-colors [&[data-status=active]]:text-[var(--orange)]"
                 style={{ transitionDelay: `${i * 30}ms` }}
               >
                 {l.label}
