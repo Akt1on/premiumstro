@@ -90,7 +90,7 @@ export function Header() {
 
       {/* Mobile drawer */}
       <div
-        style={{ backgroundColor: "var(--asphalt)" }}
+        style={{ backgroundColor: "#0d0d0d" }}
         className={`lg:hidden fixed inset-x-0 top-16 sm:top-20 bottom-0 border-t border-white/10 transition-opacity duration-300 text-foreground z-40 ${
           open ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
