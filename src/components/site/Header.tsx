@@ -32,7 +32,9 @@ export function Header() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
-        scrolled || open ? "backdrop-blur-xl bg-asphalt/85 border-b border-white/10" : ""
+        scrolled ? "bg-asphalt/95 border-b border-white/10" : ""
+      } ${
+        open ? "bg-asphalt border-b border-white/10" : ""
       }`}
     >
       <div className="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-12 h-16 sm:h-20 flex items-center justify-between gap-4">
@@ -90,19 +92,20 @@ export function Header() {
 
       {/* Mobile drawer */}
       <div
-        className={`lg:hidden fixed inset-x-0 top-16 sm:top-20 bottom-0 bg-asphalt backdrop-blur-xl border-t border-white/10 transition-all duration-500 text-foreground z-40 ${
+        style={{ backgroundColor: "#0d0d0d" }}
+        className={`lg:hidden fixed inset-x-0 top-16 sm:top-20 bottom-0 border-t border-white/10 transition-opacity duration-300 text-foreground z-40 ${
           open ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
-        <div className="overflow-y-auto h-full px-6 py-8 grid-lines pb-32">
-          <nav className="flex flex-col gap-1">
+        <div className="overflow-y-auto h-full px-6 py-5 grid-lines pb-10 flex flex-col">
+          <nav className="flex flex-col">
             {navLinks.map((l, i) => (
               <Link
                 key={l.to}
                 to={l.to}
                 onClick={() => setOpen(false)}
                 activeOptions={{ exact: l.to === "/" }}
-                className="font-display text-2xl sm:text-3xl py-4 border-b border-white/10 text-white hover:text-[var(--orange)] transition-colors [&[data-status=active]]:text-[var(--orange)]"
+                className="font-display text-xl py-2.5 border-b border-white/10 text-white hover:text-[var(--orange)] transition-colors [&[data-status=active]]:text-[var(--orange)]"
                 style={{ transitionDelay: `${i * 30}ms` }}
               >
                 {l.label}
@@ -110,16 +113,16 @@ export function Header() {
             ))}
           </nav>
           {!!services?.length && (
-            <div className="mt-8">
-              <div className="text-[10px] uppercase tracking-[0.4em] text-[var(--orange)] mb-4">Услуги</div>
-              <div className="flex flex-col gap-2">
+            <div className="mt-4">
+              <div className="text-[10px] uppercase tracking-[0.3em] text-[var(--orange)] mb-2">Услуги</div>
+              <div className="flex flex-col">
                 {services.map((s) => (
                   <Link
                     key={s.id}
                     to="/services/$slug"
                     params={{ slug: s.slug }}
                     onClick={() => setOpen(false)}
-                    className="text-sm uppercase tracking-wider text-concrete hover:text-[var(--orange)] transition-colors py-1.5"
+                    className="text-[11px] uppercase tracking-wider text-concrete hover:text-[var(--orange)] transition-colors py-1"
                   >
                     → {s.title}
                   </Link>
@@ -127,11 +130,11 @@ export function Header() {
               </div>
             </div>
           )}
-          <div className="mt-10 pt-6 border-t border-white/10">
-            <a href={`tel:${phone.replace(/[^+\d]/g, "")}`} className="font-display text-2xl text-[var(--orange)]">
+          <div className="mt-4 pt-3 border-t border-white/10">
+            <a href={`tel:${phone.replace(/[^+\d]/g, "")}`} className="font-display text-lg text-[var(--orange)]">
               {phone}
             </a>
-            <div className="text-xs uppercase tracking-widest text-muted-foreground mt-2">
+            <div className="text-[10px] uppercase tracking-widest text-muted-foreground mt-1">
               {settings?.working_hours ?? "24 / 7"}
             </div>
           </div>
