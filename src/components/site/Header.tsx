@@ -90,7 +90,8 @@ export function Header() {
 
       {/* Mobile drawer */}
       <div
-        className={`lg:hidden fixed inset-x-0 top-16 sm:top-20 bottom-0 bg-asphalt backdrop-blur-xl border-t border-white/10 transition-all duration-500 text-foreground z-40 ${
+        style={{ backgroundColor: "var(--asphalt)" }}
+        className={`lg:hidden fixed inset-x-0 top-16 sm:top-20 bottom-0 border-t border-white/10 transition-opacity duration-300 text-foreground z-40 ${
           open ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
