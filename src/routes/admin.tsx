@@ -119,7 +119,7 @@ function AdminShell() {
 
 function LoginScreen() {
   const [mode, setMode] = useState<"login" | "signup">("login");
-  const [email, setEmail] = useState("");
+  const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -127,6 +127,10 @@ function LoginScreen() {
     e.preventDefault();
     setBusy(true);
     try {
+      // Allow username "admin" — translate to internal email
+      const email = login.includes("@")
+        ? login.trim()
+        : `${login.trim().toLowerCase()}@premiumstroe.ru`;
       if (mode === "login") {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
@@ -162,11 +166,12 @@ function LoginScreen() {
 
         <form onSubmit={submit} className="space-y-5">
           <div>
-            <label className="text-[10px] uppercase tracking-widest text-muted-foreground">Email</label>
+            <label className="text-[10px] uppercase tracking-widest text-muted-foreground">Логин или Email</label>
             <input
-              type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
+              type="text" required value={login} onChange={(e) => setLogin(e.target.value)}
               className="mt-2 w-full bg-transparent border-b border-white/20 py-3 outline-none focus:border-[var(--orange)] transition-colors"
-              placeholder="admin@premiumstroe.ru"
+              placeholder="admin"
+              autoComplete="username"
             />
           </div>
           <div>
